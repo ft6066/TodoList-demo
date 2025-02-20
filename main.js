@@ -63,7 +63,7 @@ function render() {
   let resultHTML = "";
   for (let i = 0; i < list.length; i++) {
     if (list[i].isComplete == true) {
-      resultHTML += `<div class="task" style="background-color:rgb(238, 238, 238)">
+      resultHTML += `<div class="task" style="background-color:rgb(195, 223, 255)">
         <div class="task-done">${list[i].taskContent}</div>
         <div>
           <input type="image" src="images/reply-solid.svg" class="check-button" onclick="toggleComplete('${list[i].id}')"/>

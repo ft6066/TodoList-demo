@@ -16,7 +16,7 @@ body {
 }
 
 .container {
-  background-color: aliceblue;
+  background-color: rgb(240, 247, 255);
   border-radius: 60px;
   width: 90%;
   max-width: 600px; /* 너무 넓어지는 걸 방지 */
@@ -38,7 +38,7 @@ body {
   border: 2px solid rgb(93, 160, 241);
   border-radius: 10px;
   width: 100%;
-  max-width: 200px;
+  max-width: 250px;
   padding: 10px;
   box-sizing: border-box;
   outline: none;
@@ -55,7 +55,6 @@ body {
   color: rgb(255, 255, 255);
   font-weight: 800;
   font-size: 20px;
-  /* letter-spacing: 2px; */
   text-align: center;
   width: 100%;
   max-width: 80px;
