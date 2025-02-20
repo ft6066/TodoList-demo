@@ -11,39 +11,71 @@
 
 let taskInput = document.getElementById("task-input");
 let addButton = document.getElementById("add-button");
+let tabs = document.querySelectorAll(".task-tabs div");
+let underLine = document.getElementById("under-line");
 let taskList = [];
+let mode = "all";
+let filterList = [];
+
 addButton.addEventListener("click", addTask);
+taskInput.addEventListener("keypress", function (event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    addButton.click();
+  }
+});
+
+for (let i = 1; i < tabs.length; i++) {
+  tabs[i].addEventListener("click", function (event) {
+    filter(event);
+  });
+}
+console.log(tabs);
 
 function addTask() {
+  if (taskInput.value == "") {
+    return alert("할 일을 입력해 주세요.");
+  }
   let task = {
     id: randomIdGenerate(),
     taskContent: taskInput.value,
     isComplete: false,
   };
+
   taskList.push(task);
+  taskInput.value = "";
+
   console.log(taskList);
-  render();
+  console.log("fil : ", filterList);
+  filter();
 }
 
 function render() {
+  //1. 내가 선택한 탭에 따라서
+  let list = [];
+  if (mode === "all") {
+    list = taskList;
+  } else if (mode === "ongoing" || mode === "done") {
+    list = filterList;
+  }
+  //2. 리스트를 달리 보여준다
+
   let resultHTML = "";
-  for (let i = 0; i < taskList.length; i++) {
-    if (taskList[i].isComplete == true) {
-      resultHTML += `<div class="task">
-      <div class="task-box">
-        <div class="task-done">${taskList[i].taskContent}</div>
-      </div>  
+  for (let i = 0; i < list.length; i++) {
+    if (list[i].isComplete == true) {
+      resultHTML += `<div class="task" style="background-color:rgb(238, 238, 238)">
+        <div class="task-done">${list[i].taskContent}</div>
         <div>
-          <input type="image" src="images/rotate-left-solid.svg" class="check-button" onclick="toggleComplete('${taskList[i].id}')"/>
-          <input type="image" src="/images/square-minus-regular.svg" class="delete-button" onclick="deleteTask('${taskList[i].id}')"/>
+          <input type="image" src="images/reply-solid.svg" class="check-button" onclick="toggleComplete('${list[i].id}')"/>
+          <input type="image" src="/images/trash-can-solid.svg" class="delete-button" onclick="deleteTask('${list[i].id}')"/>
         </div>
       </div>`;
     } else {
       resultHTML += `<div class="task">
-        <div>${taskList[i].taskContent}</div>
+        <div>${list[i].taskContent}</div>
         <div>
-        <input type="image" src="images/square-check-regular.svg" class="check-button" onclick="toggleComplete('${taskList[i].id}')"/>
-          <input type="image" src="/images/square-minus-regular.svg" class="delete-button" onclick="deleteTask('${taskList[i].id}')"/>
+        <input type="image" src="images/square-check-solid.svg" class="check-button" onclick="toggleComplete('${list[i].id}')"/>
+          <input type="image" src="/images/trash-can-solid.svg" class="delete-button" onclick="deleteTask('${list[i].id}')"/>
         </div>
       </div>`;
     }
@@ -59,7 +91,7 @@ function toggleComplete(id) {
       break;
     }
   }
-  render();
+  filter();
   console.log(taskList);
 }
 
@@ -74,6 +106,40 @@ function deleteTask(id) {
       break;
     }
   }
-  render();
+  filter();
   console.log(taskList);
+  console.log(filterList);
+}
+
+function filter(event) {
+  if (event) {
+    mode = event.target.id;
+    underLine.style.left = event.currentTarget.offsetLeft + "px";
+    underLine.style.width = event.currentTarget.offsetWidth + "px";
+  }
+  filterList = [];
+  if (mode == "all") {
+    //전체 리스트를 보여준다.
+    render();
+  } else if (mode == "ongoing") {
+    //진행중인 아이템을 보여준다.
+    //task,isComplete = false인 값
+    for (let i = 0; i < taskList.length; i++) {
+      if (taskList[i].isComplete == false) {
+        filterList.push(taskList[i]);
+      }
+    }
+    render();
+    console.log("진행중", filterList);
+  } else if (mode == "done") {
+    //끝나는 케이스
+    //isComplete = true
+    for (let i = 0; i < taskList.length; i++) {
+      if (taskList[i].isComplete == true) {
+        filterList.push(taskList[i]);
+      }
+    }
+    render();
+    console.log("끝남", filterList);
+  }
 }

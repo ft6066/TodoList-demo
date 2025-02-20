@@ -1,28 +1,73 @@
+@font-face {
+  font-family: "Ownglyph_ParkDaHyun";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2411-3@1.0/Ownglyph_ParkDaHyun.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   margin: 0;
   background-image: url("images/달빛아래야옹기차.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
+  font-family: "Ownglyph_ParkDaHyun";
 }
 
 .container {
   background-color: aliceblue;
-  min-height: 100vh;
-  width: 50%;
+  border-radius: 60px;
+  min-height: 90vh;
+  width: 80vh;
+  margin-top: 50px;
+  margin-bottom: 50px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
     rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
     rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
-.task-area {
-  border: 1px solid lightcoral;
+.container h1 {
+  padding-top: 20px;
+  color: rgb(31, 92, 222);
+  text-align: center;
+}
+
+#task-input {
+  border: 2px solid rgb(93, 160, 241);
+  border-radius: 10px;
+  width: 400px;
+  height: 40px;
+  margin: 0 0 20px 0;
+  outline: none;
+}
+
+.input-area {
+  text-align: center;
+}
+
+#add-button {
+  border: 3px solid rgb(9, 79, 219);
+  border-radius: 5px;
+  background-color: rgb(9, 79, 219);
+  color: rgb(255, 255, 255);
+  font-weight: 800;
+  font-size: 20px;
+  /* letter-spacing: 2px; */
+  text-align: center;
 }
 
 .task-tabs {
   display: flex;
-  border-bottom: 1px solid lightcoral;
+  border-bottom: 2px solid rgb(205, 214, 255);
   position: relative;
+  font-weight: 800;
+  font-size: 20px;
+  color: rgb(61, 118, 251);
+}
+
+.task-tabs div:hover {
+  color: rgb(9, 79, 219);
 }
 
 .task-tabs div {
@@ -30,9 +75,10 @@ body {
 }
 
 #under-line {
-  height: 4px;
-  background-color: bisque;
+  border-radius: 5px;
+  background-color: rgb(255, 211, 54);
   position: absolute;
+  height: 4px;
   width: 60px;
   left: 0px;
   top: 52px;
@@ -43,28 +89,33 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 1em;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 600;
-  border-top: 1px solid lightcoral;
 }
 
 .task-done {
   text-decoration: line-through;
 }
 
-.task-box {
-  padding: 0px;
-  height: 100%;
-  width: 80%;
-  background-color: rgb(212, 209, 209);
-}
-
 .check-button {
   width: 30px;
   margin-left: 30px;
+}
+.check-button:hover,
+.delete-button:hover {
+  filter: brightness(60%);
 }
 
 .delete-button {
   width: 30px;
   margin-left: 30px;
+}
+
+.task-tabs div {
+  cursor: pointer;
+}
+
+#task-board {
+  overflow-y: auto;
+  height: 480px;
 }
